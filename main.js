@@ -1,9 +1,18 @@
-const express = require('express' 4.16.3 )
+const express = require('express')
 const app = express()
 
-app.get('/', (req, res) => res.send("Hello World!"))
+app.get('/', (req, res) => res.send('Hello World!'))
 
-app.listen(3000, () => console.log("Example app listening on port 3000!"))
+/* 위 코드는 아래와 같은 뜻이다
+app.get('/', function(req, res) {
+  return res.send('Hello World!')
+});
+*/
+
+app.get('/page', (req, res) => res.send('This is page view'))
+
+app.listen(3000, () => console.log('Example app listening on port 3000!'))
+
 
 /*
 var http = require('http');
