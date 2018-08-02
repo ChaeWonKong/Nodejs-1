@@ -1,15 +1,17 @@
-const express = require('express')
-const app = express()
+const express = require('express');
+const fs = require('fs');
+const app = express();
+const template = require('./lib/template.js');
 
-app.get('/', (req, res) => res.send('Hello World!'))
-
-/* 위 코드는 아래와 같은 뜻이다
 app.get('/', function(req, res) {
-  return res.send('Hello World!')
+  fs.readFile('./index.html', 'utf8', function(err, data) {
+    res.send(data);
+  });
 });
-*/
 
-app.get('/page', (req, res) => res.send('This is page view'))
+app.get('/page', (req, res) => {
+    res.send("This is page view");
+})
 
 app.listen(3000, () => console.log('Example app listening on port 3000!'))
 
