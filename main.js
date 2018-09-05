@@ -1,12 +1,9 @@
 const express = require("express");
 const fs = require("fs");
 const app = express();
-const template = require("./lib/template.js");
-const path = require("path");
-const qs = require("querystring");
 const bodyParser = require("body-parser");
 const compression = require("compression");
-const sanitizeHtml = require("sanitize-html");
+const indexRouter = require("./routes/index");
 const topicRouter = require("./routes/topic");
 
 app.use(express.static("public"));
@@ -20,21 +17,7 @@ app.get("*", (req, res, next) => {
   });
 });
 
-// Default Page
-app.get("/", function(req, res) {
-  const title = "Welcome";
-  const description = "Hello, Node.js";
-  const list = template.list(req.list);
-  const html = template.HTML(
-    title,
-    list,
-    `<h2>${title}</h2>${description}
-    <img src="http://localhost:3000/images/hello.jpg" style="width:200px; display:block; margin-top:10px">
-    `,
-    `<a href="/topic/create">create</a>`
-  );
-  res.send(html);
-});
+app.use("/", indexRouter);
 
 app.use("/topic", topicRouter);
 
