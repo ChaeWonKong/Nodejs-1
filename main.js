@@ -7,6 +7,7 @@ const qs = require("querystring");
 const bodyParser = require("body-parser");
 const sanitizeHtml = require("sanitize-html");
 
+app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // What's this for?
@@ -26,7 +27,9 @@ app.get("/", function(req, res) {
   const html = template.HTML(
     title,
     list,
-    `<h2>${title}</h2>${description}`,
+    `<h2>${title}</h2>${description}
+    <img src="http://localhost:3000/images/hello.jpg" style="width:200px; display:block; margin-top:10px">
+    `,
     `<a href="/create">create</a>`
   );
   res.send(html);
